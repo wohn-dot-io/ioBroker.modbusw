@@ -1,6 +1,6 @@
 {
-  "short_name": "Modbus",
-  "name": "ioBroker.modbus",
+  "short_name": "ModbusWohnio",
+  "name": "ioBroker.modbusw",
   "icons": [
     {
       "src": "favicon.ico",

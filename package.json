@@ -1,6 +1,6 @@
 {
-  "name": "iobroker.modbus",
-  "version": "6.4.0",
+  "name": "iobroker.modbusw",
+  "version": "0.0.1",
   "description": "Connect devices oder Modbus protocol to ioBroker",
   "author": {
     "name": "bluefox",
@@ -12,17 +12,17 @@
       "email": "dogafox@gmail.com"
     }
   ],
-  "homepage": "https://github.com/ioBroker/ioBroker.modbus",
+  "homepage": "https://github.com/wohn-dot-io/ioBroker.modbusw",
   "license": "MIT",
   "keywords": [
     "ioBroker",
-    "modbus",
+    "modbusw",
     "Smart Home",
     "home automation"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ioBroker/ioBroker.modbus"
+    "url": "https://github.com/wohn-dot-io/ioBroker.modbusw"
   },
   "engines": {
     "node": ">=16"
@@ -77,7 +77,7 @@
     "4-patch": "node tasks.js --4-patch"
   },
   "bugs": {
-    "url": "https://github.com/ioBroker/ioBroker.modbus/issues"
+    "url": "https://github.com/wohn-dot-io/ioBroker.modbus/issues"
   },
   "readmeFilename": "README.md"
 }

@@ -165,6 +165,11 @@
         "title": "Device ID"
     },
     {
+        "name": "linkedId",
+        "type": "text",
+        "title": "Linked ID"
+    },
+    {
         "name": "multiDeviceId",
         "type": "checkbox",
         "title": "Multi device IDs"

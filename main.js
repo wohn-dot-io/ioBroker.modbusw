@@ -5,7 +5,7 @@
 
 const utils = require('@iobroker/adapter-core');
 const adapterName = require('./package.json').name.split('.').pop();
-let modbus = null;
+let modbusw = null;
 let SerialPort = null;
 let fs;
 let adapter;
@@ -56,17 +56,17 @@ function startAdapter(options) {
 
     adapter.on('stateChange', (id, state) => {
         if (state && !state.ack && id && !infoRegExp.test(id)) {
-            if (!modbus) {
+            if (!modbusw) {
                 adapter.log.warn('No connection');
             } else {
                 adapter.log.debug(`state Changed ack=false: ${id}: ${JSON.stringify(state)}`);
                 if (objects[id]) {
-                    modbus.write(id, state);
+                    modbusw.write(id, state);
                 } else {
                     adapter.getObject(id, (err, data) => {
                         if (!err) {
                             objects[id] = data;
-                            modbus.write(id, state);
+                            modbusw.write(id, state);
                         }
                     });
                 }
@@ -80,9 +80,9 @@ function startAdapter(options) {
 process.on('SIGINT', stop);
 
 function stop(callback) {
-    if (modbus) {
-        modbus.close();
-        modbus = null;
+    if (modbusw) {
+        modbusw.close();
+        modbusw = null;
     }
 
     if (adapter && adapter.setState && adapter.config && adapter.config.params) {
@@ -664,7 +664,7 @@ function assignIds(deviceId, config, result, regName, regType, localOptions) {
         } else {
             // replace dots by underlines and add to ID
             if (localOptions.doNotIncludeAdrInId) {
-                // It must be so, because of the bug https://github.com/ioBroker/ioBroker.modbus/issues/473
+                // It must be so, because of the bug https://github.com/wohn-dot-io/ioBroker.modbusw/issues/473
                 // config[i].id += config[i].name ? config[i].name.replace(/\./g, '_').replace(/\s/g, '_') : '';
 
                 // But because of breaking change
@@ -1039,8 +1039,8 @@ function main() {
         } else {
             Modbus = require('./lib/master');
         }
-        modbus = new Modbus(options, adapter);
-        modbus.start();
+        modbusw = new Modbus(options, adapter);
+        modbusw.start();
     });
 }
 
