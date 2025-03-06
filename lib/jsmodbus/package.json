@@ -4,7 +4,7 @@
         "email": "stefan.poeter@cloud-automation.de"
     },
     "bugs": {
-        "url": "https://github.com/Cloud-Automation/node-modbus/issues"
+        "url": "https://github.com/Cloud-Automation/node-modbusw/issues"
     },
     "dependencies": {
         "crc": "4.3.2",
@@ -27,13 +27,13 @@
     "engine": {
         "node": ">=0.6"
     },
-    "homepage": "https://github.com/Cloud-Automation/node-modbus#readme",
+    "homepage": "https://github.com/Cloud-Automation/node-modbusw#readme",
     "keywords": [
         "client",
         "server",
         "serial",
         "port",
-        "modbus",
+        "modbusw",
         "tcp"
     ],
     "license": "MIT",
@@ -41,7 +41,7 @@
     "name": "jsmodbus",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Cloud-Automation/node-modbus.git"
+        "url": "git+https://github.com/Cloud-Automation/node-modbusw.git"
     },
     "scripts": {
         "test": "mocha test/*"

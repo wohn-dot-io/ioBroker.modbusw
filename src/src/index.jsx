@@ -5,7 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import pkg from '../package.json';
 
-window.adapterName = 'modbus';
+window.adapterName = 'modbusw';
 window.sentryDSN = 'https://19469f9280bd4b18a3e960e79cb01df2@sentry.iobroker.net/196';
 
 console.log(`iobroker.${window.adapterName}@${pkg.version}`);

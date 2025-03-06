@@ -22,10 +22,10 @@ Please feel free to fork and add your own tests.
 TCP Client example
 --------------
 ```javascript
-var modbus = require('jsmodbus');
+var modbusw = require('jsmodbus');
 
-// create a modbus client
-var client = modbus.client.tcp.complete({ 
+// create a modbusw client
+var client = modbusw.client.tcp.complete({ 
         'host'              : host, 
         'port'              : port,
         'autoReconnect'     : true,
@@ -140,7 +140,7 @@ Server example
 ```javascript
     
     var stampit = require('stampit'),
-        modbus = require('jsmodbus');
+        modbusw = require('jsmodbus');
 
     var customServer = stampit()
         .refs({
@@ -153,7 +153,7 @@ Server example
             holding             : new Buffer(1024),
             input               : new Buffer(1024)
         })
-        .compose(modbus.server.tcp.complete)
+        .compose(modbusw.server.tcp.complete)
         .init(function () {
         
             var init = function () {
@@ -188,7 +188,7 @@ Server example
 
     // you can of course always use a standard server like so
 
-    var server = modbus.server.tcp.complete({ port : 8888 });
+    var server = modbusw.server.tcp.complete({ port : 8888 });
 
     // and interact with the register via the getCoils(), getHolding() and getInput() calls
 

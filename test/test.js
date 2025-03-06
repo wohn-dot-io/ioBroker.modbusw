@@ -1,8 +1,8 @@
 // 'RIR' contains the "Function Code" that we are going to invoke on the remote device
-const FC = require('modbus-stack').FUNCTION_CODES;
+const FC = require('modbusw-stack').FUNCTION_CODES;
 
 // IP and port of the MODBUS slave, default port is 502
-const client = require('modbus-stack/client').createClient(502, 'localhost');
+const client = require('modbusw-stack/client').createClient(502, 'localhost');
 
 // 'req' is an instance of the low-level `ModbusRequestStack` class
 const req = client
