@@ -1,8 +1,8 @@
 ![Logo](admin/modbus.png)
 # iobroker.modbusw
 
-![Number of Installations](http://iobroker.live/badges/modbusw-installed.svg)
-![Number of Installations](http://iobroker.live/badges/modbusw-stable.svg)
+![Number of Installations](http://iobroker.live/badges/modbus-installed.svg)
+![Number of Installations](http://iobroker.live/badges/modbus-stable.svg)
 [![NPM version](http://img.shields.io/npm/v/iobroker.modbusw.svg)](https://www.npmjs.com/package/iobroker.modbusw)
 
 ![Test and Release](https://github.com/wohn-dot-io/ioBroker.modbusw/workflows/Test%20and%20Release/badge.svg)
@@ -193,7 +193,7 @@ This variable can be then later used in any formula for other parameters. E.g., 
 - `string16le`- `String 16 bit (Little Endian, Zero-end): A\0B\0C\0D\0E\0F\0\0\0 => ABCDEF\0`
 - `rawhex`    - `String with value in hex representation AABBCCDD.... => AABBCCDD....`
 
-The following description was copied from [here](http://www.chipkin.com/how-real-floating-point-and-32-bit-data-is-encoded-in-modbusw-rtu-messages/)
+The following description was copied from [here](http://www.chipkin.com/how-real-floating-point-and-32-bit-data-is-encoded-in-modbus-rtu-messages/)
 
 The point-to-point Modbus protocol is a popular choice for RTU communications if for no other reason that its basic convenience. The protocol itself controls the interactions of each device on a Modbus network, how device establishes a known address, how each device recognizes its messages and how basic information is extracted from the data. In essence, the protocol is the foundation of the entire Modbus network.
 
@@ -292,7 +292,7 @@ One can then swap bytes and/or words to analyze what potential endianness issues
 ## Export / Import of registers
 With export / import functionality, you can convert all register data (only of one type) to a TSV (Tab separated values) file and back to easily copy data from one device to another or to edit register in Excel.
 
-You can share your schemas with other users in [modbusw-templates](https://github.com/ioBroker/modbusw-templates) or you can find some register schemas there.
+You can share your schemas with other users in [modbus-templates](https://github.com/ioBroker/modbus-templates) or you can find some register schemas there.
 
 ## Test
 There are some programs in folder `test` to test the TCP communication:
@@ -301,7 +301,7 @@ There are some programs in folder `test` to test the TCP communication:
 - mod_RSsim.exe is a slave simulator. It can be that you need [Microsoft Visual C++ 2008 SP1 Redistributable Package](https://www.microsoft.com/en-us/download/details.aspx?id=5582) to start it (because of SideBySide error).
 
 ## Todo
-- [ ] Parse files on https://github.com/ioBroker/modbusw-templates and allow to import them directly from adapter
+- [ ] Parse files on https://github.com/ioBroker/modbus-templates and allow to import them directly from adapter
 
 <!--
 	### **WORK IN PROGRESS**
