@@ -13,6 +13,7 @@ class InputRegisters extends BaseRegisters {
             { name: '_address', title: 'Address', type: 'number', sorted: true, width: 20 },
             { name: 'name', title: 'Name', type: 'text', sorted: true },
             { name: 'description', title: 'Description', type: 'text', sorted: true },
+            { name: 'standardName', title: 'StandardName', type: 'text', sorted: true },
             { name: 'unit', title: 'Unit', type: 'text', width: 30 },
             { name: 'type', title: 'Type', type: 'select', options: types, sorted: true },
             { name: 'len', title: 'Length', type: 'text', width: 20 },
@@ -21,6 +22,7 @@ class InputRegisters extends BaseRegisters {
             { name: 'formula', title: 'Formula', type: 'text', formulaDisabled: true, expert: true },
             { name: 'role', title: 'Role', type: 'select', options: roles, sorted: true },
             { name: 'room', title: 'Room', type: 'rooms' },
+            { name: 'mqttEnabled', title: 'MQTT enabled', type: 'checkbox', tooltip: 'If you want to send it over mqtt' },
             { name: 'cw', title: 'CW', type: 'checkbox', tooltip: 'Cyclic write' },
             {
                 name: 'isScale',
