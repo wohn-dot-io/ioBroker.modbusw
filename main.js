@@ -556,7 +556,15 @@ function checkObjects(options, regType, regName, regFullName, tasks, newObjects,
                         ? false
                         : ['string', 'stringle', 'string16', 'string16le', 'rawhex'].includes(regs[i].type)
                           ? ''
-                          : 0,
+                          : regs[i].defaultValue // Wohnio custom
+                            ? +regs[i].defaultValue // Wohnio custom
+                            : 0,
+                customConfigs: {
+                    linkedId: options.params.linkedId, // Wohnio custom
+                    standardName: regs[i].standardName, // Wohnio custom
+                    defaultValue: regs[i].defaultValue, // Wohnio custom
+                    mqttEnabled: regs[i].mqttEnabled, // Wohnio custom
+                },
             },
             native: {
                 regType: regType,
