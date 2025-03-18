@@ -378,7 +378,13 @@ class Options extends Component {
                                 style={styles.optionsTextField}
                                 inputProps={inputProps}
                                 disabled={this.inputDisabled(input)}
-                                helperText={input.help ? I18n.t(input.help) : ''}
+                                required={!!input.required} // Wohnio custom
+                                error={input.required && (!this.props.native.params[input.name] || this.props.native.params[input.name].toString().trim() === '')} // Wohnio Custom
+                                helperText={
+                                  input.required && (!this.props.native.params[input.name] || this.props.native.params[input.name].toString().trim() === '')
+                                    ? I18n.t('This field is required')
+                                    : input.help ? I18n.t(input.help) : ''
+                                } // Wohnio custom
                                 value={this.props.native.params[input.name]}
                                 InputProps={{
                                     endAdornment: input.dimension ? (

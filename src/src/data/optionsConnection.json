@@ -166,8 +166,10 @@
     },
     {
         "name": "linkedId",
+        "required": true,
         "type": "text",
-        "title": "Linked ID"
+        "title": "Linked ID",
+        "tooltip": "Wohnio device linkedId field"
     },
     {
         "name": "multiDeviceId",

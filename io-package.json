@@ -134,7 +134,7 @@
       "keepAliveInterval": 0,
       "maxBlock": 100,
       "maxBoolBlock": 128,
-      "multiDeviceId": true,
+      "multiDeviceId": false,
       "pulsetime": 1000,
       "waitTime": 50,
       "disInputsOffset": 10001,
