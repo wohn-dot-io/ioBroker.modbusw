@@ -537,6 +537,14 @@ function checkObjects(options, regType, regName, regFullName, tasks, newObjects,
 
         const id = `${adapter.namespace}.${regs[i].id || i}`;
         regs[i].fullId = id;
+
+        const customConfigs = {
+            linkedId: options.params.linkedId, // Wohnio custom
+            standardName: regs[i].standardName, // Wohnio custom
+            defaultValue: regs[i].defaultValue, // Wohnio custom
+            mqttEnabled: regs[i].mqttEnabled, // Wohnio custom
+        };
+
         objects[id] = {
             _id: regs[i].id,
             type: 'state',
@@ -559,12 +567,7 @@ function checkObjects(options, regType, regName, regFullName, tasks, newObjects,
                           : regs[i].defaultValue // Wohnio custom
                             ? +regs[i].defaultValue // Wohnio custom
                             : 0,
-                customConfigs: {
-                    linkedId: options.params.linkedId, // Wohnio custom
-                    standardName: regs[i].standardName, // Wohnio custom
-                    defaultValue: regs[i].defaultValue, // Wohnio custom
-                    mqttEnabled: regs[i].mqttEnabled, // Wohnio custom
-                },
+                customConfigs, // Wohnio custom
             },
             native: {
                 regType: regType,
@@ -986,6 +989,15 @@ function parseConfig(callback) {
 
         // create/ update 'info.connection' object
         let obj = await adapter.getObjectAsync('info.connection');
+
+        const connectedCustomConfigs = {
+            linkedId: params.linkedId, // Wohnio custom
+            standardName: 'current_status', // Wohnio custom
+            postTopicValue: 'device_status', // Wohnio custom
+            mqttEnabled: true, // Wohnio custom
+            retained: true, // Wohnio custom
+        };
+
         if (!obj) {
             obj = {
                 type: 'state',
@@ -1011,6 +1023,10 @@ function parseConfig(callback) {
             obj.common.def = false;
             await adapter.setObjectAsync('info.connection', obj);
         }
+
+        obj.common.customConfigs = connectedCustomConfigs; // Wohnio custom
+        await adapter.setObjectAsync('info.connection', obj); // Wohnio custom
+
         await adapter.setStateAsync('info.connection', adapter.config.params.slave ? '' : false, true);
 
         newObjects.push(`${adapter.namespace}.info.connection`);
