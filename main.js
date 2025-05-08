@@ -537,6 +537,35 @@ function checkObjects(options, regType, regName, regFullName, tasks, newObjects,
 
         const id = `${adapter.namespace}.${regs[i].id || i}`;
         regs[i].fullId = id;
+
+        const customConfigs = {
+            linkedId: options.params.linkedId, // Wohnio custom
+            standardName: regs[i].standardName, // Wohnio custom
+            defaultValue: regs[i].defaultValue, // Wohnio custom
+            mqttEnabled: regs[i].mqttEnabled, // Wohnio custom
+        };
+
+        // Wohnio custom
+
+        function getDefaultValue(regType, currentRegister) {
+            if (currentRegister?.defaultValue) {
+                adapter.log.debug(`Default value for ${regType} ${currentRegister.id}: ${currentRegister.defaultValue}`);
+                return parseFloat(currentRegister.defaultValue);
+            }
+            const isBooleanType = regType === 'coils' || regType === 'disInputs';
+            const isStringType = ['string', 'stringle', 'string16', 'string16le', 'rawhex'].includes(
+                currentRegister.type,
+            );
+
+            if (isBooleanType) {
+                return false;
+            }
+            if (isStringType) {
+                return '';
+            }
+            return 0;
+        }
+
         objects[id] = {
             _id: regs[i].id,
             type: 'state',
@@ -551,20 +580,8 @@ function checkObjects(options, regType, regName, regFullName, tasks, newObjects,
                           : 'number',
                 read: true,
                 write: !!options.params.slave || regType === 'coils' || regType === 'holdingRegs',
-                def:
-                    regType === 'coils' || regType === 'disInputs'
-                        ? false
-                        : ['string', 'stringle', 'string16', 'string16le', 'rawhex'].includes(regs[i].type)
-                          ? ''
-                          : regs[i].defaultValue // Wohnio custom
-                            ? +regs[i].defaultValue // Wohnio custom
-                            : 0,
-                customConfigs: {
-                    linkedId: options.params.linkedId, // Wohnio custom
-                    standardName: regs[i].standardName, // Wohnio custom
-                    defaultValue: regs[i].defaultValue, // Wohnio custom
-                    mqttEnabled: regs[i].mqttEnabled, // Wohnio custom
-                },
+                def: getDefaultValue(regType, regs[i]), // Wohnio custom
+                customConfigs, // Wohnio custom
             },
             native: {
                 regType: regType,
@@ -986,6 +1003,15 @@ function parseConfig(callback) {
 
         // create/ update 'info.connection' object
         let obj = await adapter.getObjectAsync('info.connection');
+
+        const connectedCustomConfigs = {
+            linkedId: params.linkedId, // Wohnio custom
+            standardName: 'current_status', // Wohnio custom
+            postTopicValue: 'device_status', // Wohnio custom
+            mqttEnabled: true, // Wohnio custom
+            retained: true, // Wohnio custom
+        };
+
         if (!obj) {
             obj = {
                 type: 'state',
@@ -1011,6 +1037,10 @@ function parseConfig(callback) {
             obj.common.def = false;
             await adapter.setObjectAsync('info.connection', obj);
         }
+
+        obj.common.customConfigs = connectedCustomConfigs; // Wohnio custom
+        await adapter.setObjectAsync('info.connection', obj); // Wohnio custom
+
         await adapter.setStateAsync('info.connection', adapter.config.params.slave ? '' : false, true);
 
         newObjects.push(`${adapter.namespace}.info.connection`);
@@ -1030,10 +1060,31 @@ function parseConfig(callback) {
             }
         }
 
+        async function setDefaultValues(objects) {
+            for (const [id, obj] of Object.entries(objects)) {
+                const def = obj?.common?.def;
+                if (def !== undefined && def !== null && obj.type === 'state') {
+                    try {
+                        const current = await adapter.getStateAsync(id);
+                        if (current !== def) {
+                            await adapter.setStateAsync(id, def, false);
+                            adapter.log.info(`Default value ${def} set for ${id}`);
+                        } else {
+                            adapter.log.debug(`State ${id} same as default, skipping setting default`);
+                        }
+                    } catch (err) {
+                        adapter.log.warn(`Failed to set default for ${id}: ${err.message}`);
+                    }
+                }
+            }
+        }
+
         processTasks(tasks, () => {
             oldObjects = [];
             newObjects = [];
             adapter.subscribeStates('*');
+
+            setTimeout(() => setDefaultValues(objects), 5000);
             callback(options);
         });
     });
