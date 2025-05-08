@@ -1060,31 +1060,32 @@ function parseConfig(callback) {
             }
         }
 
-        async function setDefaultValues(objects) {
-            for (const [id, obj] of Object.entries(objects)) {
-                const def = obj?.common?.def;
-                if (def !== undefined && def !== null && obj.type === 'state') {
-                    try {
-                        const current = await adapter.getStateAsync(id);
-                        if (current !== def) {
-                            await adapter.setStateAsync(id, def, false);
-                            adapter.log.info(`Default value ${def} set for ${id}`);
-                        } else {
-                            adapter.log.debug(`State ${id} same as default, skipping setting default`);
-                        }
-                    } catch (err) {
-                        adapter.log.warn(`Failed to set default for ${id}: ${err.message}`);
-                    }
-                }
-            }
-        }
+        // // Wohnio custom
+        // async function setDefaultValues(objects) {
+        //     for (const [id, obj] of Object.entries(objects)) {
+        //         const def = obj?.common?.def;
+        //         if (def !== undefined && def !== null && obj.type === 'state' && obj.common.write) {
+        //             try {
+        //                 const current = await adapter.getStateAsync(id);
+        //                 if (current !== def) {
+        //                     await adapter.setStateAsync(id, def, false);
+        //                     adapter.log.info(`Default value ${def} set for ${id}`);
+        //                 } else {
+        //                     adapter.log.debug(`State ${id} same as default, skipping setting default`);
+        //                 }
+        //             } catch (err) {
+        //                 adapter.log.warn(`Failed to set default for ${id}: ${err.message}`);
+        //             }
+        //         }
+        //     }
+        // }
 
         processTasks(tasks, () => {
             oldObjects = [];
             newObjects = [];
             adapter.subscribeStates('*');
 
-            setTimeout(() => setDefaultValues(objects), 5000);
+            // setTimeout(() => setDefaultValues(objects), 5000);
             callback(options);
         });
     });
