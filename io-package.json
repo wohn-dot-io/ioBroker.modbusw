@@ -129,7 +129,7 @@
       "linkedId": "",
       "timeout": 5000,
       "slave": 0,
-      "poll": 60000,
+      "poll": 30000,
       "recon": 60000,
       "keepAliveInterval": 0,
       "maxBlock": 100,
